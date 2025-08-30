@@ -71,6 +71,10 @@ def add_movie(title: str, year: int, genre: str, rating: float):
     movies.append(new_movie)
     return {"message": "Movie added successfully!", "movie": new_movie}
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=5002)

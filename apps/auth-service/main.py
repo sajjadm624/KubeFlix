@@ -60,6 +60,10 @@ def secure_data(current_user: str = Depends(verify_token)):
 def read_root():
     return {"message": "Auth Service is up"}
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=5001)
