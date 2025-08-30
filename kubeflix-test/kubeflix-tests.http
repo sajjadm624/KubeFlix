@@ -1,0 +1,143 @@
+### =====================
+### AUTH SERVICE (5001)
+### =====================
+
+# Health check
+GET http://127.0.0.1:5001/health
+
+###
+
+# Root check
+GET http://127.0.0.1:5001/
+
+###
+
+# Login (valid credentials)
+POST http://127.0.0.1:5001/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin123"
+}
+
+###
+
+# Login (invalid credentials)
+POST http://127.0.0.1:5001/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "wrong"
+}
+
+###
+
+# Access secure data (replace {{token}} with actual JWT from login response)
+GET http://127.0.0.1:5001/secure-data
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc1NjUyMTkwNH0.r59M5Oga3TXo7h4NgshXjkLrpzX_Z7Q7JmLBHQHwIeM
+
+
+### =====================
+### USER SERVICE (5000)
+### =====================
+
+# Health check
+GET http://127.0.0.1:5000/health
+
+###
+
+# Root check
+GET http://127.0.0.1:5000/
+
+###
+
+# Get all users
+GET http://127.0.0.1:5000/users
+
+###
+
+# Get user by ID (exists)
+GET http://127.0.0.1:5000/users/1
+
+###
+
+# Get user by ID (not exists)
+GET http://127.0.0.1:5000/users/99
+
+###
+
+# Create new user
+POST http://127.0.0.1:5000/users
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "Charlie",
+  "email": "charlie@example.com"
+}
+
+
+### =====================
+### MOVIE SERVICE (5002)
+### =====================
+
+# Health check
+GET http://127.0.0.1:5002/health
+
+###
+
+# Root check
+GET http://127.0.0.1:5002/
+
+###
+
+# Get all movies
+GET http://127.0.0.1:5002/movies
+
+###
+
+# Get movie by ID (exists)
+GET http://127.0.0.1:5002/movies/1
+
+###
+
+# Get movie by ID (not exists)
+GET http://127.0.0.1:5002/movies/999
+
+###
+
+# Search movies by title
+GET http://127.0.0.1:5002/search?title=godfather
+
+###
+
+# Random movie recommendation (1 by default)
+GET http://127.0.0.1:5002/recommendations
+
+###
+
+# Random 3 recommendations
+GET http://127.0.0.1:5002/recommendations?count=3
+
+###
+
+# List genres
+GET http://127.0.0.1:5002/genres
+
+###
+
+# Get top-rated (default 3)
+GET http://127.0.0.1:5002/top-rated
+
+###
+
+# Get top 5 rated movies
+GET http://127.0.0.1:5002/top-rated?limit=5
+
+###
+
+# Add new movie
+POST http://127.0.0.1:5002/add-movie?title=Tenet&year=2020&genre=Sci-Fi&rating=7.5
+

@@ -1,0 +1,116 @@
+AUTH-SERVICE
+
+# Health check
+curl -X GET http://127.0.0.1:5001/health
+# → {"status": "ok"}
+
+# Root check
+curl -X GET http://127.0.0.1:5001/
+# → {"message": "Auth Service is up"}
+
+# Login with correct credentials (admin/admin123)
+curl -X POST http://127.0.0.1:5001/login \
+    -H "Content-Type: application/json" \
+    -d '{"username":"admin","password":"admin123"}'
+# → Returns {"access_token": "xxx", "token_type": "bearer"}
+
+# Login with wrong credentials
+curl -X POST http://127.0.0.1:5001/login \
+    -H "Content-Type: application/json" \
+    -d '{"username":"admin","password":"wrong"}'
+# → 401 Unauthorized
+
+# Access secure data with token (replace $TOKEN with actual JWT)
+TOKEN="PASTE_YOUR_JWT_HERE"
+curl -X GET http://127.0.0.1:5001/secure-data \
+    -H "Authorization: Bearer $TOKEN"
+# → {"message": "Hello admin, you're authenticated!"}
+
+# Access secure data without token
+curl -X GET http://127.0.0.1:5001/secure-data
+# → 401 Unauthorized
+
+
+USER-SERVICE
+
+# Health check
+curl -X GET http://127.0.0.1:5000/health
+# → {"status": "ok"}
+
+# Root check
+curl -X GET http://127.0.0.1:5000/
+# → {"message": "Welcome to User Service"}
+
+# Get all users
+curl -X GET http://127.0.0.1:5000/users
+# → [{"id":1,"name":"Alice","email":"alice@example.com"}, ...]
+
+# Get single user (exists)
+curl -X GET http://127.0.0.1:5000/users/1
+# → {"id":1,"name":"Alice","email":"alice@example.com"}
+
+# Get single user (not exists)
+curl -X GET http://127.0.0.1:5000/users/99
+# → {"error": "User not found"}
+
+# Create a new user
+curl -X POST http://127.0.0.1:5000/users \
+    -H "Content-Type: application/json" \
+    -d '{"id":3,"name":"Charlie","email":"charlie@example.com"}'
+# → {"message": "User created", "user": {...}}
+
+# Verify new user
+curl -X GET http://127.0.0.1:5000/users/3
+# → {"id":3,"name":"Charlie","email":"charlie@example.com"}
+
+
+MOVIE-SERVICE
+
+# Health check
+curl -X GET http://127.0.0.1:5002/health
+# → {"status": "ok"}
+
+# Root check
+curl -X GET http://127.0.0.1:5002/
+# → {"message": "Welcome to the Movie Service!"}
+
+# Get all movies
+curl -X GET http://127.0.0.1:5002/movies
+# → Returns full list of movies
+
+# Get movie by ID
+curl -X GET http://127.0.0.1:5002/movies/1
+# → {"id":1,"title":"The Matrix",...}
+
+# Get non-existent movie
+curl -X GET http://127.0.0.1:5002/movies/999
+# → 404 {"detail": "Movie not found!"}
+
+# Search movies by title keyword
+curl -X GET "http://127.0.0.1:5002/search?title=godfather"
+# → Matches with The Godfather, etc.
+
+# Get random movie recommendations (1 by default)
+curl -X GET http://127.0.0.1:5002/recommendations
+# → Random movie from list
+
+# Get 3 random recommendations
+curl -X GET "http://127.0.0.1:5002/recommendations?count=3"
+# → 3 random movies
+
+# List all genres
+curl -X GET http://127.0.0.1:5002/genres
+# → {"available_genres": ["Drama","Sci-Fi","Action",...]}
+
+# Get top-rated movies (default 3)
+curl -X GET http://127.0.0.1:5002/top-rated
+# → 3 movies sorted by rating
+
+# Get top 5 movies
+curl -X GET "http://127.0.0.1:5002/top-rated?limit=5"
+# → top 5 rated movies
+
+# Add a new movie (note: params in query, not JSON body)
+curl -X POST "http://127.0.0.1:5002/add-movie?title=Tenet&year=2020&genre=Sci-Fi&rating=7.5"
+# → {"message":"Movie added successfully!", "movie":{...}}
+
