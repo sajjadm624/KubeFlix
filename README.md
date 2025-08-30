@@ -84,7 +84,8 @@ The charts include:
    bash ./scripts/helm-install.sh
 
 - Start port-forwarding for local access:
- bash ./scripts/launch-kubeflix.sh
+   bash ./scripts/launch-kubeflix.sh
+```
 
 ## Access services locally:
 
