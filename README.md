@@ -65,37 +65,30 @@ The charts include:
 - **Helm**
 - **kubectl**
 - Kubernetes namespace `kubeflix`:
-```bash
-kubectl create ns kubeflix
+```bash kubectl create ns kubeflix
 
 
 ## Deployment Steps
 
 - Stop existing port-forwarding:
-```bash
-bash ./scripts/down-kubeflix.sh 
-bash ```
+```bash bash ./scripts/down-kubeflix.sh 
 
 - Clean previous deployments:
-```bash
-bash ./scripts/destroy.sh
+```bash bash ./scripts/destroy.sh
 
 - Build Docker images and load to Minikube:
-```bash
-bash ./scripts/00-build-image_load-minikube.sh
+```bash bash ./scripts/00-build-image_load-minikube.sh
 
 - Deploy services using Helm:
-```bash 
-bash ./scripts/helm-install.sh
+```bash bash ./scripts/helm-install.sh
 
 - Start port-forwarding for local access:
-```bash
-bash ./scripts/launch-kubeflix.sh
+```bash bash ./scripts/launch-kubeflix.sh
 
 ## Access services locally:
 
-### http://127.0.0.1:5000 → user-service
+- http://127.0.0.1:5000 → user-service
 
-### http://127.0.0.1:5001 → auth-service
+- http://127.0.0.1:5001 → auth-service
 
-### http://127.0.0.1:5002 → movie-service
+- http://127.0.0.1:5002 → movie-service
