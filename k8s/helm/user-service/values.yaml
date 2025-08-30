@@ -1,0 +1,52 @@
+# Number of service replicas
+replicaCount: 2
+
+# Docker image configuration
+image:
+  repository: user-service
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Kubernetes Service settings
+service:
+  type: ClusterIP
+  port: 5000
+
+# Internal container port
+containerPort: 5000
+
+# Environment variables passed to the container
+env:
+  - name: FLASK_ENV
+    value: production
+
+# Resource requests and limits for the pod
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 250m
+    memory: 128Mi
+
+# Liveness and readiness probe configuration
+probes:
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 5000
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 2
+    failureThreshold: 3
+    successThreshold: 1
+
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 5000
+    initialDelaySeconds: 5
+    periodSeconds: 5
+    timeoutSeconds: 2
+    failureThreshold: 3
+    successThreshold: 1

@@ -1,0 +1,99 @@
+KubeFlix Deployment Guide
+Prerequisites:
+Minikube is running
+
+Docker CLI and Helm are installed
+
+Kubernetes namespace kubeflix exists (create it if not: kubectl create ns kubeflix)
+
+Step 1: Bring down any previous port-forwarding sessions
+Run this to stop any active kubectl port-forward processes:
+
+bash
+Copy code
+bash ./scripts/down-kubeflix.sh
+This ensures there are no conflicts when setting up the new session.
+
+Step 2: Clean up previous resources
+To delete all existing deployments and services in the kubeflix namespace, and clean up Docker images:
+
+bash
+Copy code
+bash ./scripts/destroy.sh
+This clears the slate for a fresh start.
+
+Step 3: Build Docker images and load them into Minikube
+This script builds the Docker images for movie-service, auth-service, and user-service from the respective directories and loads them into Minikube:
+
+bash
+Copy code
+bash ./scripts/00-build-image_load-minikube.sh
+Ensures that your custom Docker images are available for Kubernetes.
+
+Step 4: Deploy services to Kubernetes using Helm
+Use Helm to install or upgrade the services (user-service, auth-service, movie-service) in the kubeflix namespace:
+
+bash
+Copy code
+bash ./scripts/helm-install.sh
+This applies the Helm charts, setting up the deployments, services, and configurations for the microservices.
+
+Step 5: Start port forwarding for local access
+To access the services locally, run this script. It will forward the necessary ports to your local machine:
+
+bash
+Copy code
+bash ./scripts/launch-kubeflix.sh
+After running this, you can access the services on the following URLs:
+
+http://127.0.0.1:5000 → user-service
+
+http://127.0.0.1:5001 → auth-service
+
+http://127.0.0.1:5002 → movie-service
+
+Health Checks:
+All services are equipped with liveness and readiness probes. These probes ensure:
+
+The service is only considered "ready" when it is fully operational.
+
+The service is automatically restarted if it becomes unhealthy.
+
+Step 6: Full rebuild (for development or quick refresh)
+For a clean start, you can run a one-liner that will:
+
+Stop any existing port-forwarding
+
+Destroy previous Kubernetes resources
+
+Rebuild and load Docker images
+
+Deploy the Helm charts
+
+Launch port-forwarding again
+
+bash
+Copy code
+bash ./scripts/down-destroy-build-load-helm-launch.sh
+This command gives you a quick reset when working in development or after making changes.
+
+Step 7: Helm upgrade for existing services
+If you only need to apply changes to your Helm charts (without rebuilding the Docker images), use this:
+
+bash
+Copy code
+bash ./scripts/helm-upgrade.sh
+This will upgrade your services without touching the images.
+
+Step 8: Docker images to kind cluster (Optional)
+If you are using a kind cluster instead of Minikube, you can load the built Docker images into your kind cluster:
+
+bash
+Copy code
+bash ./scripts/load_kind.sh
+This is useful for switching between clusters or working with a kind-based Kubernetes setup.
+
+Conclusion:
+Once all the steps are complete, your KubeFlix application will be running in your local Kubernetes environment. You can access and interact with the services using the exposed ports. Enjoy testing and expanding the project!
+
+Let me know if you need any further adjustments or if you want to add more details. This version is professional, to the point, and should fit perfectly with your workflow.
