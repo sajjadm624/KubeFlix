@@ -73,7 +73,7 @@ kubectl create ns kubeflix
 
 - Stop existing port-forwarding:
 ```bash
-bash ./scripts/down-kubeflix.sh
+bash ./scripts/down-kubeflix.sh ```
 
 - Clean previous deployments:
 ```bash
