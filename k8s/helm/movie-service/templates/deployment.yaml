@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "movie-service.fullname" . }}
-  namespace: "kubeflix"
+  namespace: {{.Values.namespace | default "kubeflix"}}
   labels:
     app: {{ include "movie-service.name" . }}
 spec:

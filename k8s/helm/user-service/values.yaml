@@ -1,5 +1,6 @@
 # Number of service replicas
 replicaCount: 2
+namespace: kubeflix
 
 # Docker image configuration
 image:

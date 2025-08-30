@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "auth-service.fullname" . }}
-  namespace: kubeflix
+  namespace: {{.Values.namespace | default "kubeflix"}}
   labels:
     app: {{ include "auth-service.name" . }}
 spec:
@@ -46,4 +46,3 @@ spec:
             timeoutSeconds: {{ .Values.probes.readinessProbe.timeoutSeconds }}
             failureThreshold: {{ .Values.probes.readinessProbe.failureThreshold }}
             successThreshold: {{ .Values.probes.readinessProbe.successThreshold }}
-

@@ -1,4 +1,5 @@
 replicaCount: 1
+namespace: kubeflix
 
 image:
   repository: auth-service
