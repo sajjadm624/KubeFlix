@@ -148,7 +148,18 @@ All services implement:
     - Readiness Probe: Ensures traffic only goes to ready pods
     - Configured via Helm templates
 
-# Full Rebuild (Dev / Reset)
-- bash ./scripts/down-destroy-build-load-helm-launch.sh
-> # Stops port-forwarding, cleans old resources,
-> # rebuilds images, deploys Helm charts, and starts forwarding
+# Full Rebuild (Development / Reset)
+
+Run the following script to completely reset and rebuild the project:
+
+```bash
+bash ./scripts/down-destroy-build-load-helm-launch.sh
+
+# What this script does
+
+```text
+- Stops any active port-forwarding.
+- Cleans up old Kubernetes resources and deployments.
+- Rebuilds Docker images for all services.
+- Deploys Helm charts to the cluster.
+- Starts port-forwarding so services are accessible locally.
