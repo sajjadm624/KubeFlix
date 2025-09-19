@@ -1,0 +1,53 @@
+Push to main / PR / Manual Trigger
+                │
+                ▼
+        ┌───────────────┐
+        │ Checkout Code │
+        └───────────────┘
+                │
+                ▼
+        ┌───────────────┐
+        │ Setup Docker  │
+        │ Buildx & Auth │
+        └───────────────┘
+                │
+                ▼
+  ┌───────────────────────────┐
+  │ Build Docker Images        │
+  │ - user-service            │
+  │ - auth-service            │
+  │ - movie-service           │
+  └───────────────────────────┘
+                │
+                ▼
+      ┌─────────────────┐
+      │ Cache Layers    │
+      │ (speed builds)  │
+      └─────────────────┘
+                │
+                ▼
+  ┌───────────────────────────────┐
+  │ Push Images to Registry       │
+  │ - GHCR / DockerHub            │
+  │ - Tag: latest + commit SHA    │
+  └───────────────────────────────┘
+                │
+                ▼
+ ┌───────────────────────────────┐
+ │ (Optional) Deploy to Minikube │
+ │ - Helm upgrade/install        │
+ │ - Rollout status check        │
+ └───────────────────────────────┘
+                │
+                ▼
+      ┌───────────────────┐
+      │ Smoke Test APIs   │
+      │ curl / port check │
+      └───────────────────┘
+                │
+                ▼
+      ┌───────────────────┐
+      │ Confirm Success   │
+      │ GitHub Checks ✅   │
+      └───────────────────┘
+

@@ -94,3 +94,51 @@ The charts include:
 - http://127.0.0.1:5001 → auth-service
 
 - http://127.0.0.1:5002 → movie-service
+
+## Service Endpoints (FastAPI)
+
+### User Service
+```bash
+GET /users             # List all users
+GET /users/{id}        # Get user by ID
+POST /users            # Create new user
+GET /health            # Liveness & readiness probe 
+```
+
+### Auth Service
+```bash
+POST /login            # Generate JWT token
+GET /secure-data       # Access protected route with JWT
+GET /health            # Liveness & readiness probe 
+```
+
+### Movie Service
+```bash
+GET /movies                   # List all movies
+GET /movies/{id}              # Get movie by ID
+GET /search?title=<title>     # Search movies by title
+GET /recommendations?count=N  # Random movie recommendations
+GET /genres                    # List available genres
+GET /top-rated?limit=N        # Top-rated movies
+POST /add-movie               # Add new movie
+GET /health                   # Liveness & readiness probe
+```
+
+## Health Checks
+All services implement:
+
+# Liveness Probe
+#   - Restarts the pod if unhealthy
+# Readiness Probe
+#   - Ensures traffic only goes to ready pods
+# Configured via Helm templates
+
+bash ./scripts/down-destroy-build-load-helm-launch.sh
+# Stops port-forwarding, cleans old resources,
+# rebuilds images, deploys Helm charts, and starts forwarding
+
+Full Rebuild (Dev / Reset)
+
+bash ./scripts/down-destroy-build-load-helm-launch.sh
+# Stops port-forwarding, cleans old resources,
+# rebuilds images, deploys Helm charts, and starts forwarding
