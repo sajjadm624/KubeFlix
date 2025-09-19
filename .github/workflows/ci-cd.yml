@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch: # allows manual trigger
 
 jobs:
   build-and-push:
@@ -12,17 +13,20 @@ jobs:
 
     steps:
       # --------------------------
-      # Checkout code
+      # 1. Checkout code
       # --------------------------
       - name: Checkout code
         uses: actions/checkout@v4
 
       # --------------------------
-      # Setup Docker
+      # 2. Setup Docker Buildx
       # --------------------------
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      # --------------------------
+      # 3. Login to GitHub Container Registry
+      # --------------------------
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -31,7 +35,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       # --------------------------
-      # Build & Push user-service
+      # 4. Build & Push user-service
       # --------------------------
       - name: Build and push user-service
         uses: docker/build-push-action@v5
@@ -39,11 +43,11 @@ jobs:
           context: ./apps/user-service
           push: true
           tags: ghcr.io/sajjadm624/kubeflix/user-service:latest
-	  cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/user-service:latest
+          cache-from: type=registry,ref=ghcr.io/sajjadm624/kubeflix/user-service:latest
           cache-to: type=inline
 
       # --------------------------
-      # Build & Push auth-service
+      # 5. Build & Push auth-service
       # --------------------------
       - name: Build and push auth-service
         uses: docker/build-push-action@v5
@@ -51,11 +55,11 @@ jobs:
           context: ./apps/auth-service
           push: true
           tags: ghcr.io/sajjadm624/kubeflix/auth-service:latest
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/auth-service:latest
+          cache-from: type=registry,ref=ghcr.io/sajjadm624/kubeflix/auth-service:latest
           cache-to: type=inline
 
       # --------------------------
-      # Build & Push movie-service
+      # 6. Build & Push movie-service
       # --------------------------
       - name: Build and push movie-service
         uses: docker/build-push-action@v5
@@ -63,5 +67,5 @@ jobs:
           context: ./apps/movie-service
           push: true
           tags: ghcr.io/sajjadm624/kubeflix/movie-service:latest
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/movie-service:latest
+          cache-from: type=registry,ref=ghcr.io/sajjadm624/kubeflix/movie-service:latest
           cache-to: type=inline
