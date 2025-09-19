@@ -58,6 +58,23 @@ The charts include:
 
 ---
 
+## CI/CD Progress (GitHub Actions)
+
+The GitHub Actions pipeline is being integrated for automated Docker build, test, and deployment:
+
+**Pipeline Plan:**
+
+1. Setup GH Actions workflow skeleton ✅
+2. Build pipeline: Docker build + push ✅
+3. Test pipeline locally (cache & build) ✅
+4. Connect pipeline to Minikube images ⚠️ (in progress)
+5. Debug pipeline + push images ⚠️ (in progress)
+6. Confirm pipeline success ⚠️ (pending)
+
+> Current status: Docker images are successfully built and pushed. Workflow skeleton is set up, and local tests are complete. Integration with Minikube and full automation is underway.
+
+---
+
 ## Prerequisites
 
 - **Minikube** (or Kind cluster)
@@ -127,18 +144,11 @@ GET /health                   # Liveness & readiness probe
 ## Health Checks
 All services implement:
 
-# Liveness Probe
-#   - Restarts the pod if unhealthy
-# Readiness Probe
-#   - Ensures traffic only goes to ready pods
-# Configured via Helm templates
+    - Liveness Prob: Restarts the pod if unhealthy
+    - Readiness Probe: Ensures traffic only goes to ready pods
+    - Configured via Helm templates
 
+# Full Rebuild (Dev / Reset)
 bash ./scripts/down-destroy-build-load-helm-launch.sh
-# Stops port-forwarding, cleans old resources,
-# rebuilds images, deploys Helm charts, and starts forwarding
-
-Full Rebuild (Dev / Reset)
-
-bash ./scripts/down-destroy-build-load-helm-launch.sh
-# Stops port-forwarding, cleans old resources,
-# rebuilds images, deploys Helm charts, and starts forwarding
+/# Stops port-forwarding, cleans old resources,
+/# rebuilds images, deploys Helm charts, and starts forwarding

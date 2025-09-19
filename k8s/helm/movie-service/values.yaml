@@ -2,7 +2,7 @@ replicaCount: 1
 namespace: kubeflix
 
 image:
-  repository: movie-service
+  repository: ghcr.io/sajjadm624/movie-service
   tag: latest
   pullPolicy: IfNotPresent
 

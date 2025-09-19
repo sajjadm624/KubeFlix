@@ -2,7 +2,7 @@ replicaCount: 2
 namespace: kubeflix
 
 image:
-  repository: auth-service
+  repository: ghcr.io/sajjadm624/auth-service
   tag: latest
   pullPolicy: IfNotPresent
 

@@ -4,7 +4,7 @@ namespace: kubeflix
 
 # Docker image configuration
 image:
-  repository: user-service
+  repository: ghcr.io/sajjadm624/user-service
   tag: latest
   pullPolicy: IfNotPresent
 
