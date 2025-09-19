@@ -149,6 +149,6 @@ All services implement:
     - Configured via Helm templates
 
 # Full Rebuild (Dev / Reset)
-bash ./scripts/down-destroy-build-load-helm-launch.sh
-/# Stops port-forwarding, cleans old resources,
-/# rebuilds images, deploys Helm charts, and starts forwarding
+- bash ./scripts/down-destroy-build-load-helm-launch.sh
+> # Stops port-forwarding, cleans old resources,
+> # rebuilds images, deploys Helm charts, and starts forwarding
