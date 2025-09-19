@@ -38,8 +38,8 @@ jobs:
         with:
           context: ./apps/user-service
           push: true
-          tags: ghcr.io/${{ github.repository | toLowerCase }}/user-service:latest
-          cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/user-service:latest
+          tags: ghcr.io/sajjadm624/kubeflix/user-service:latest
+	  cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/user-service:latest
           cache-to: type=inline
 
       # --------------------------
@@ -50,7 +50,7 @@ jobs:
         with:
           context: ./apps/auth-service
           push: true
-          tags: ghcr.io/${{ github.repository | toLowerCase }}/auth-service:latest
+          tags: ghcr.io/sajjadm624/kubeflix/auth-service:latest
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/auth-service:latest
           cache-to: type=inline
 
@@ -62,6 +62,6 @@ jobs:
         with:
           context: ./apps/movie-service
           push: true
-          tags: ghcr.io/${{ github.repository | toLowerCase }}/movie-service:latest
+          tags: ghcr.io/sajjadm624/kubeflix/movie-service:latest
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}/movie-service:latest
           cache-to: type=inline
