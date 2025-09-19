@@ -157,9 +157,9 @@ bash ./scripts/down-destroy-build-load-helm-launch.sh
 
 # What this script does
 
-```text
 - Stops any active port-forwarding.
 - Cleans up old Kubernetes resources and deployments.
 - Rebuilds Docker images for all services.
 - Deploys Helm charts to the cluster.
 - Starts port-forwarding so services are accessible locally.
+```
